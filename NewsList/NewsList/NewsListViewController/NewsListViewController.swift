@@ -11,19 +11,15 @@ import UIKit
 class NewsListViewController: UIViewController {
     
     var feedTableView = NewsListTableView()
+    let newsServices = NewsServices()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupView()
-         self.view.backgroundColor = .white
-         self.navigationController?.navigationBar.prefersLargeTitles = true
-         self.title = "Новости"
-        // Do any additional setup after loading the view.
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
-        self.setupView()
     }
     
     required init?(coder: NSCoder) {
@@ -31,9 +27,25 @@ class NewsListViewController: UIViewController {
     }
     
     private func setupView() {
+        self.feedTableView.tableViewPushDelegate = self
         self.view = self.feedTableView
+        self.view.backgroundColor = .white
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.title = "Новости"
+        newsServices.getNews { (news) in
+            self.feedTableView.news = news
+            DispatchQueue.main.async {
+                self.feedTableView.reloadData()
+            }
+        }
+        
     }
+}
 
-
+extension NewsListViewController: TableViewPushDelegate {
+    
+    func pushVC(viewController: UIViewController) {
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 
