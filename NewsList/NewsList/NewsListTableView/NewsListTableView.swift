@@ -8,11 +8,18 @@
 
 import UIKit
 
+protocol TableViewPushDelegate: class {
+    func pushVC(viewController: UIViewController)
+}
+
 
 class NewsListTableView: UITableView {
     
-    var news: [String] = ["TEST", "TEST2", "TEST3", "TEST4", "TEST5", "TEST6"]
-    var testTITLE = "Today i took a really big job on my shoulders. Cant wait to Get to work"
+    public weak var tableViewPushDelegate: TableViewPushDelegate?
+    
+    var news: [PostModel] = []
+    let operationQueue = OperationQueue()
+    var cachedImages: [IndexPath : UIImage] = [:]
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -28,16 +35,25 @@ class NewsListTableView: UITableView {
         self.delegate = self
         self.dataSource = self
         self.register(NewsListTableViewCell.self, forCellReuseIdentifier: NewsListTableViewCell.reuseId)
+
     }
     
-//    private func getHeightForMediaCell(indexPath: IndexPath) -> CGFloat {
-//        let tableWidth = self.bounds.width
-//        let news = self.news[indexPath.row]
-//    var cellHeight: CGFloat = 150
-//    if news.attachments.count == nil {
-//        return cellHeight }
-//    else if
-//    }
+    private func setPicture(for cell: NewsListTableViewCell, at indexPath: IndexPath) {
+        
+        guard self.cachedImages[indexPath] == nil else {
+            return cell.postImage.image = cachedImages[indexPath]
+        }
+        
+        let operation = LoadImageOperation()
+        operation.url = URL(string: self.news[indexPath.row].postImageURL)
+        self.operationQueue.addOperation(operation)
+        operation.completion = { image in
+            if cell.indexPath == indexPath {
+                self.cachedImages[indexPath] = image
+                cell.postImage.image = image
+            } else { cell.frame = .zero }
+        }
+    }
 }
 
 extension NewsListTableView: UITableViewDelegate, UITableViewDataSource {
@@ -51,34 +67,23 @@ extension NewsListTableView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        return 400
+    }
+     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let url = self.news[indexPath.row].postURL
+        let vc = WebViewController(with: url)
+        self.tableViewPushDelegate?.pushVC(viewController: vc)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = dequeueReusableCell(withIdentifier: NewsListTableViewCell.reuseId, for: indexPath) as? NewsListTableViewCell else { return UITableViewCell() }
-        cell.sourceLabel.text = self.news[indexPath.row]
-        cell.dateLabel.text = self.news[indexPath.row]
-        cell.titleLabel.text = self.testTITLE
-        let image = UIImage(named: "testphoto")
-        cell.feedImage.image = image
+        cell.sourceLabel.text = self.news[indexPath.row].sourceName
+        cell.dateLabel.text = self.news[indexPath.row].date
+        cell.titleLabel.text = self.news[indexPath.row].title
+        cell.indexPath = indexPath
+        self.setPicture(for: cell, at: indexPath)
         
         return cell
-    }
-}
-
-extension NewsListTableView {
-    
-    private func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
-    
-    private func downloadImage(from url: URL) -> UIImage {
-        var escapeData: Data = Data()
-        getData(from: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            escapeData = data
-        }
-        guard let image = UIImage(data: escapeData) else { return UIImage() }
-        return image
     }
 }
