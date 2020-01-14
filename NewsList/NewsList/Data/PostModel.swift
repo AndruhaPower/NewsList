@@ -23,6 +23,24 @@ struct PostModel {
         self.postURL = json["url"].stringValue
         self.postImageURL = json["urlToImage"].stringValue
         self.date = json["publishedAt"].stringValue
+        self.date = getDateFormat(from: self.date)
+    }
+    
+    private func getDateFormat(from string: String) -> String {
+        
+        let dateFormatterGetter = DateFormatter()
+        dateFormatterGetter.dateFormat = "YYYY-M-DD'T'HH:mm:ssZ"
+        
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterPrint.locale = Locale(identifier: "ru_RU")
+        dateFormatterPrint.dateFormat = "dd.MM.yyyy HH:mm"
+        
+        var exitString = ""
+        
+        if let date = dateFormatterGetter.date(from: string) {
+            exitString = dateFormatterPrint.string(from: date)
+        }
+        return exitString
     }
 }
 

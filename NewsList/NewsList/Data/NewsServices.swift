@@ -35,7 +35,6 @@ class NewsServices {
                     let post = PostModel(with: post)
                     newsArray.append(post)
                 }
-                print(newsArray)
                 completion(newsArray)
             case .failure(let error):
                 print(error.localizedDescription)
