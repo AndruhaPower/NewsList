@@ -28,17 +28,23 @@ class NewsServices {
         NewsServices.custom.request(url, method: .get).responseJSON { (response) in
             switch response.result {
             case .success(let value):
-                var newsArray: [PostModel] = []
                 let json = JSON(value)
-                let articles = json["articles"]
-                articles.arrayValue.forEach {  (post) in
-                    let post = PostModel(with: post)
-                    newsArray.append(post)
-                }
-                completion(newsArray)
+                let news = self.handleParsing(from: json)
+                completion(news)
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    private func handleParsing(from json: JSON) -> [PostModel] {
+        var newsArray: [PostModel] = []
+        let articles = json["articles"]
+        articles.arrayValue.forEach {  (post) in
+            let post = PostModel(with: post)
+            newsArray.append(post)
+        }
+        newsArray.sort { $0 > $1 }
+        return newsArray
     }
 }

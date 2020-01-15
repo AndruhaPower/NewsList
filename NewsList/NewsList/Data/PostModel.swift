@@ -44,3 +44,14 @@ struct PostModel {
     }
 }
 
+extension PostModel: Equatable {
+    
+    static func > (lhs: PostModel, rhs: PostModel) -> Bool {
+        return lhs.date > rhs.date
+    }
+    
+    static func < (lhs: PostModel, rhs: PostModel) -> Bool {
+        return lhs.date < rhs.date
+    }
+}
+
