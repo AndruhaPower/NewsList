@@ -11,6 +11,7 @@ import Foundation
 
 class Constants {
     
-    
-    static let requestURL: String = "https://newsapi.org/v2/top-headlines?country=ru&apiKey=2f278ac450fb4078b4997ac1916c492d"
+    static let requestURL: String = "https://newsapi.org/v2/top-headlines"
+    static let apiKey: String = "2f278ac450fb4078b4997ac1916c492d"
+    static let pageSize: Int = 20
 }
