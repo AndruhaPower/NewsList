@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/andrew/Documents/Developer/NewsList/NewsList/NewsList/Data/PostDataModel+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/andrew/Documents/Developer/NewsList/NewsList/NewsList/Data/PostDataModel+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:NewsList.xcodeproj">
    </FileRef>
    <FileRef
