@@ -9,9 +9,8 @@
 import UIKit
 
 class NewsListViewController: UIViewController {
-    
+
     var feedTableView = NewsListTableView()
-    let newsServices = NewsServices()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,13 +31,6 @@ class NewsListViewController: UIViewController {
         self.view.backgroundColor = .white
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.title = "Новости"
-        newsServices.getNews { (news) in
-            self.feedTableView.news = news
-            DispatchQueue.main.async {
-                self.feedTableView.reloadData()
-            }
-        }
-        
     }
 }
 
