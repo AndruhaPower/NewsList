@@ -5,8 +5,9 @@
         <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="source" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="PostDataModel" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="PostDataModel" positionX="-63" positionY="-18" width="128" height="118"/>
     </elements>
 </model>

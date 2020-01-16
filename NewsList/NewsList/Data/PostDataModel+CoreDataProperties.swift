@@ -20,5 +20,6 @@ extension PostDataModel {
     @NSManaged public var image: Data?
     @NSManaged public var title: String?
     @NSManaged public var date: String?
+    @NSManaged public var url: String?
 
 }
