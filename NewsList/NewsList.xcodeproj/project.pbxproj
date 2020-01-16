@@ -23,7 +23,6 @@
 		4931822523CCCAEA0000FADE /* NewsListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4931822423CCCAEA0000FADE /* NewsListTests.swift */; };
 		49347B6C23CE2FC500916723 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49347B6B23CE2FC500916723 /* WebViewController.swift */; };
 		4995DE5423CF7F8D0065EB29 /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4995DE5323CF7F8D0065EB29 /* DateConverter.swift */; };
-		49E1541523CE5F8F0066592F /* MainWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E1541423CE5F8F0066592F /* MainWebView.swift */; };
 		49E3F46B23CD10BD0036B74E /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E3F46A23CD10BD0036B74E /* PostModel.swift */; };
 		49E3F46D23CD10CA0036B74E /* NewsServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E3F46C23CD10CA0036B74E /* NewsServices.swift */; };
 		49EB46A223CCCEEA00F4F7F6 /* NewsListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EB46A123CCCEEA00F4F7F6 /* NewsListTableView.swift */; };
@@ -65,7 +64,6 @@
 		4931822623CCCAEA0000FADE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49347B6B23CE2FC500916723 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		4995DE5323CF7F8D0065EB29 /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
-		49E1541423CE5F8F0066592F /* MainWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWebView.swift; sourceTree = "<group>"; };
 		49E3F46A23CD10BD0036B74E /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		49E3F46C23CD10CA0036B74E /* NewsServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsServices.swift; sourceTree = "<group>"; };
 		49EB46A123CCCEEA00F4F7F6 /* NewsListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListTableView.swift; sourceTree = "<group>"; };
@@ -137,6 +135,7 @@
 				4931820C23CCCAE70000FADE /* SceneDelegate.swift */,
 				490B432423D0313800F942E6 /* ViewControllers */,
 				49E3F46923CD108C0036B74E /* Data */,
+				491345AF23CD19A7001A1F0B /* Constants.swift */,
 				491345B123CD1FE5001A1F0B /* Utilities */,
 				4931821623CCCAE90000FADE /* Assets.xcassets */,
 				4931821823CCCAE90000FADE /* LaunchScreen.storyboard */,
@@ -168,20 +167,34 @@
 			isa = PBXGroup;
 			children = (
 				49347B6B23CE2FC500916723 /* WebViewController.swift */,
-				49E1541423CE5F8F0066592F /* MainWebView.swift */,
 			);
 			path = WebViewViewController;
+			sourceTree = "<group>";
+		};
+		49DC29FB23D104C8003B35C9 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				490B432823D0DDD500F942E6 /* PostDataModel+CoreDataClass.swift */,
+				490B432723D0DDD400F942E6 /* PostDataModel+CoreDataProperties.swift */,
+				490B432523D0318D00F942E6 /* PersistentContainer.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		49DC29FC23D104E1003B35C9 /* NewsService */ = {
+			isa = PBXGroup;
+			children = (
+				49E3F46C23CD10CA0036B74E /* NewsServices.swift */,
+				49E3F46A23CD10BD0036B74E /* PostModel.swift */,
+			);
+			path = NewsService;
 			sourceTree = "<group>";
 		};
 		49E3F46923CD108C0036B74E /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				49E3F46A23CD10BD0036B74E /* PostModel.swift */,
-				49E3F46C23CD10CA0036B74E /* NewsServices.swift */,
-				490B432523D0318D00F942E6 /* PersistentContainer.swift */,
-				491345AF23CD19A7001A1F0B /* Constants.swift */,
-				490B432823D0DDD500F942E6 /* PostDataModel+CoreDataClass.swift */,
-				490B432723D0DDD400F942E6 /* PostDataModel+CoreDataProperties.swift */,
+				49DC29FC23D104E1003B35C9 /* NewsService */,
+				49DC29FB23D104C8003B35C9 /* CoreData */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -395,7 +408,6 @@
 				491345B323CD1FFF001A1F0B /* LoadImageOperation.swift in Sources */,
 				4931820D23CCCAE70000FADE /* SceneDelegate.swift in Sources */,
 				490B432923D0DDD500F942E6 /* PostDataModel+CoreDataProperties.swift in Sources */,
-				49E1541523CE5F8F0066592F /* MainWebView.swift in Sources */,
 				491345B023CD19A7001A1F0B /* Constants.swift in Sources */,
 				49347B6C23CE2FC500916723 /* WebViewController.swift in Sources */,
 			);

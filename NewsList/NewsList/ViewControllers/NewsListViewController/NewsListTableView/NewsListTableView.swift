@@ -12,7 +12,6 @@ protocol TableViewPushDelegate: class {
     func pushVC(viewController: UIViewController)
 }
 
-
 class NewsListTableView: UITableView {
     
     public weak var tableViewPushDelegate: TableViewPushDelegate?
@@ -36,8 +35,8 @@ class NewsListTableView: UITableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-// MARK: setting up TableView
+    
+    // MARK: setting up TableView
     
     private func setupTableView() {
         self.backgroundColor = .white
@@ -52,7 +51,7 @@ class NewsListTableView: UITableView {
         guard self.cachedImages[indexPath] == nil else {
             return cell.postImage.image = cachedImages[indexPath]
         }
-    
+        
         let operation = LoadImageOperation()
         operation.url = URL(string: self.news[indexPath.row].postImageURL)
         self.operationQueue.addOperation(operation)
@@ -60,7 +59,7 @@ class NewsListTableView: UITableView {
             if cell.indexPath == indexPath {
                 self.cachedImages[indexPath] = image
                 cell.postImage.image = image
-            } else { cell.frame = .zero }
+            }
         }
     }
     
@@ -80,16 +79,12 @@ class NewsListTableView: UITableView {
     }
     
     @objc func refreshNews(_ sender: Any) {
-        self.newsServices.getNews(page: 1) { (newPosts) in
-            guard let lastDownloaded = newPosts.last
-                , let firstDownloaded = newPosts.first
-                , let lastShowing = self.news.first
-                , firstDownloaded != lastShowing
-                , lastDownloaded > lastShowing
-                else { self.refreshControl?.endRefreshing(); return }
+        self.newsServices.getNews(page: 1) { (response) in
+            var newPosts = response
+            guard let currentTopDate = self.news.first?.date else { self.getNews(); return }
+            newPosts.removeAll { $0.date <= currentTopDate }
             self.news = newPosts + self.news
-            let indexSet = IndexSet(integersIn: 0..<newPosts.count)
-            self.insertSections(indexSet, with: .automatic)
+            self.reloadData()
             self.refreshControl?.endRefreshing()
         }
     }
@@ -110,7 +105,7 @@ extension NewsListTableView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 400
     }
-     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let url = self.news[indexPath.row].postURL
         let vc = WebViewController(with: url)
@@ -140,14 +135,14 @@ extension NewsListTableView: UITableViewDataSourcePrefetching {
             !self.isLoading {
             self.isLoading = true
             self.page = Int(self.news.count / Constants.pageSize) + 1
- 
+            
             self.newsServices.getNews(page: self.page) { [weak self] (olderPosts) in
                 guard let self = self
                     , olderPosts.count != 0
                     , let firstPost = olderPosts.first
                     , let lastPost = self.news.last
                     , lastPost > firstPost else { return }
-        
+                
                 self.news.append(contentsOf: olderPosts)
                 self.reloadData()
                 self.isLoading = false

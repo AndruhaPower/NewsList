@@ -27,7 +27,7 @@ class WebViewController: UIViewController {
     }
     
     private func setupWebView() {
-        let webView = MainWebView()
+        let webView = WKWebView()
         guard let url = URL(string: self.url) else { return }
         webView.load(URLRequest(url: url))
         self.view = webView

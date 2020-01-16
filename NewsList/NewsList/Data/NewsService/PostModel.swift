@@ -26,7 +26,7 @@ struct PostModel {
     }
 }
 
-extension PostModel: Equatable {
+extension PostModel: Equatable, Hashable {
     
     static func > (lhs: PostModel, rhs: PostModel) -> Bool {
         return lhs.date > rhs.date
