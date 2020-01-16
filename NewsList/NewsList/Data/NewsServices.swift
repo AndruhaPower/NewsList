@@ -21,12 +21,19 @@ class NewsServices {
         return manager
     }()
     
-    public func getNews(completion: @escaping ([PostModel]) -> ()) {
+    public func getNews(page: Int, completion: @escaping ([PostModel]) -> ()) {
+        
+        let params: Parameters = [
+            "country" : "ru",
+            "apiKey" : Constants.apiKey,
+            "page" : page,
+            "pageSize" : Constants.pageSize
+        ]
         
         let url = Constants.requestURL
         
-        NewsServices.custom.request(url, method: .get).responseJSON { (response) in
-            switch response.result {
+        NewsServices.custom.request(url, method: .get, parameters: params).responseJSON { (response) in
+        switch response.result {
             case .success(let value):
                 let json = JSON(value)
                 let news = self.handleParsing(from: json)
