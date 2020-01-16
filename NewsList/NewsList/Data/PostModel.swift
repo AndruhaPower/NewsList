@@ -17,30 +17,12 @@ struct PostModel {
     var postImageURL: String
     var date: String
 
-    init(with json: JSON) {
+    init(with json: JSON, formatter: DateConvertable.Type = DateConverter.self) {
         self.sourceName = json["source"]["name"].stringValue
         self.title = json["title"].stringValue
         self.postURL = json["url"].stringValue
         self.postImageURL = json["urlToImage"].stringValue
-        self.date = json["publishedAt"].stringValue
-        self.date = getDateFormat(from: self.date)
-    }
-    
-    private func getDateFormat(from string: String) -> String {
-        
-        let dateFormatterGetter = DateFormatter()
-        dateFormatterGetter.dateFormat = "YYYY-M-DD'T'HH:mm:ssZ"
-        
-        let dateFormatterPrint = DateFormatter()
-        dateFormatterPrint.locale = Locale(identifier: "ru_RU")
-        dateFormatterPrint.dateFormat = "dd.MM.yyyy HH:mm"
-        
-        var exitString = ""
-        
-        if let date = dateFormatterGetter.date(from: string) {
-            exitString = dateFormatterPrint.string(from: date)
-        }
-        return exitString
+        self.date = formatter.getDateFormat(from: json["publishedAt"].stringValue)
     }
 }
 
