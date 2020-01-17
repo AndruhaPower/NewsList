@@ -12,15 +12,15 @@ protocol TableViewPushDelegate: class {
     func pushVC(viewController: UIViewController)
 }
 
-class NewsListTableView: UITableView {
+final class NewsListTableView: UITableView {
     
     public weak var tableViewPushDelegate: TableViewPushDelegate?
     
     var page: Int = 1
-    var news: [PostModel] = []
+    var news = [PostModel]()
     
     let operationQueue = OperationQueue()
-    var cachedImages: [IndexPath : UIImage] = [:]
+    var cachedImages = [String : UIImage]()
     var newsServices = NewsServices()
     
     var isLoading: Bool = false
@@ -45,20 +45,23 @@ class NewsListTableView: UITableView {
         self.prefetchDataSource = self
         self.register(NewsListTableViewCell.self, forCellReuseIdentifier: NewsListTableViewCell.reuseId)
     }
-    
+
     private func setPicture(for cell: NewsListTableViewCell, at indexPath: IndexPath) {
         
-        guard self.cachedImages[indexPath] == nil else {
-            return cell.postImage.image = cachedImages[indexPath]
-        }
+        let post = self.news[indexPath.row]
         
-        let operation = LoadImageOperation()
-        operation.url = URL(string: self.news[indexPath.row].postImageURL)
-        self.operationQueue.addOperation(operation)
-        operation.completion = { image in
-            if cell.indexPath == indexPath {
-                self.cachedImages[indexPath] = image
-                cell.postImage.image = image
+        if self.cachedImages[post.date] != nil {
+            cell.postImage.image = self.cachedImages[post.date]
+        } else {
+            let operation = LoadImageOperation()
+            operation.url = URL(string: post.postImageURL)
+            self.operationQueue.addOperation(operation)
+            operation.completion = { [weak self] (image) in
+                guard let self = self else { return }
+                if cell.indexPath == indexPath {
+                    self.cachedImages[post.date] = image
+                    cell.postImage.image = image
+                }
             }
         }
     }
@@ -79,7 +82,8 @@ class NewsListTableView: UITableView {
     }
     
     @objc func refreshNews(_ sender: Any) {
-        self.newsServices.getNews(page: 1) { (response) in
+        self.newsServices.getNews(page: 1) { [weak self] (response) in
+            guard let self = self else { return }
             var newPosts = response
             guard let currentTopDate = self.news.first?.date else { self.getNews(); return }
             newPosts.removeAll { $0.date <= currentTopDate }
@@ -113,7 +117,8 @@ extension NewsListTableView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = dequeueReusableCell(withIdentifier: NewsListTableViewCell.reuseId, for: indexPath) as? NewsListTableViewCell else { return UITableViewCell() }
+        guard let cell = dequeueReusableCell(withIdentifier: NewsListTableViewCell.reuseId, for: indexPath) as?
+            NewsListTableViewCell, indexPath.row < self.news.count else { return UITableViewCell() }
         cell.sourceLabel.text = self.news[indexPath.row].sourceName
         cell.dateLabel.text = self.news[indexPath.row].date
         cell.titleLabel.text = self.news[indexPath.row].title
@@ -129,10 +134,10 @@ extension NewsListTableView: UITableViewDelegate, UITableViewDataSource {
 extension NewsListTableView: UITableViewDataSourcePrefetching {
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        guard let maxRow =  indexPaths.map({ $0.row }).max() else { return }
-        
-        if maxRow > self.news.count - 3,
-            !self.isLoading {
+        guard let maxRow =  indexPaths.map({ $0.row }).max()
+            , maxRow > self.news.count - 3 else { return }
+
+            if !self.isLoading {
             self.isLoading = true
             self.page = Int(self.news.count / Constants.pageSize) + 1
             
@@ -142,7 +147,6 @@ extension NewsListTableView: UITableViewDataSourcePrefetching {
                     , let firstPost = olderPosts.first
                     , let lastPost = self.news.last
                     , lastPost > firstPost else { return }
-                
                 self.news.append(contentsOf: olderPosts)
                 self.reloadData()
                 self.isLoading = false
