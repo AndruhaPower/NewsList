@@ -16,10 +16,10 @@ extension PostDataModel {
         return NSFetchRequest<PostDataModel>(entityName: "PostDataModel")
     }
 
-    @NSManaged public var date: String?
+    @NSManaged public var date: String
     @NSManaged public var image: Data?
-    @NSManaged public var source: String?
-    @NSManaged public var title: String?
-    @NSManaged public var url: String?
+    @NSManaged public var source: String
+    @NSManaged public var title: String
+    @NSManaged public var url: String
 
 }
