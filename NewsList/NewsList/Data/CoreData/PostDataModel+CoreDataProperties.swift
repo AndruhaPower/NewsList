@@ -1,9 +1,8 @@
 //
 //  PostDataModel+CoreDataProperties.swift
-//  NewsList
+//  
 //
-//  Created by Andrew on 16/01/2020.
-//  Copyright © 2020 Andrew. All rights reserved.
+//  Created by Andrew on 18/01/2020.
 //
 //
 
