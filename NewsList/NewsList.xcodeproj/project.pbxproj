@@ -21,8 +21,6 @@
 		4931822523CCCAEA0000FADE /* NewsListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4931822423CCCAEA0000FADE /* NewsListTests.swift */; };
 		49347B6C23CE2FC500916723 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49347B6B23CE2FC500916723 /* WebViewController.swift */; };
 		4995DE5423CF7F8D0065EB29 /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4995DE5323CF7F8D0065EB29 /* DateConverter.swift */; };
-		49DC2A0323D32468003B35C9 /* PostDataModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DC2A0223D32468003B35C9 /* PostDataModel+CoreDataClass.swift */; };
-		49DC2A0423D32468003B35C9 /* PostDataModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DC2A0123D32468003B35C9 /* PostDataModel+CoreDataProperties.swift */; };
 		49E3F46B23CD10BD0036B74E /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E3F46A23CD10BD0036B74E /* PostModel.swift */; };
 		49E3F46D23CD10CA0036B74E /* NewsServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E3F46C23CD10CA0036B74E /* NewsServices.swift */; };
 		49EB46A223CCCEEA00F4F7F6 /* NewsListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EB46A123CCCEEA00F4F7F6 /* NewsListTableView.swift */; };
@@ -62,8 +60,6 @@
 		4931822623CCCAEA0000FADE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49347B6B23CE2FC500916723 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		4995DE5323CF7F8D0065EB29 /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
-		49DC2A0123D32468003B35C9 /* PostDataModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PostDataModel+CoreDataProperties.swift"; path = "/Users/andrew/Documents/Developer/NewsList/NewsList/NewsList/Data/CoreData/PostDataModel+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
-		49DC2A0223D32468003B35C9 /* PostDataModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PostDataModel+CoreDataClass.swift"; path = "/Users/andrew/Documents/Developer/NewsList/NewsList/NewsList/Data/CoreData/PostDataModel+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		49E3F46A23CD10BD0036B74E /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		49E3F46C23CD10CA0036B74E /* NewsServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsServices.swift; sourceTree = "<group>"; };
 		49EB46A123CCCEEA00F4F7F6 /* NewsListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListTableView.swift; sourceTree = "<group>"; };
@@ -175,8 +171,6 @@
 			isa = PBXGroup;
 			children = (
 				490B432523D0318D00F942E6 /* PersistentContainer.swift */,
-				49DC2A0223D32468003B35C9 /* PostDataModel+CoreDataClass.swift */,
-				49DC2A0123D32468003B35C9 /* PostDataModel+CoreDataProperties.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -402,11 +396,9 @@
 				490B432623D0318D00F942E6 /* PersistentContainer.swift in Sources */,
 				4995DE5423CF7F8D0065EB29 /* DateConverter.swift in Sources */,
 				4931821523CCCAE70000FADE /* NewsList.xcdatamodeld in Sources */,
-				49DC2A0323D32468003B35C9 /* PostDataModel+CoreDataClass.swift in Sources */,
 				49EB46A423CCCEF500F4F7F6 /* NewsListTableViewCell.swift in Sources */,
 				49E3F46D23CD10CA0036B74E /* NewsServices.swift in Sources */,
 				491345B323CD1FFF001A1F0B /* LoadImageOperation.swift in Sources */,
-				49DC2A0423D32468003B35C9 /* PostDataModel+CoreDataProperties.swift in Sources */,
 				4931820D23CCCAE70000FADE /* SceneDelegate.swift in Sources */,
 				491345B023CD19A7001A1F0B /* Constants.swift in Sources */,
 				49347B6C23CE2FC500916723 /* WebViewController.swift in Sources */,
