@@ -100,6 +100,7 @@
 			children = (
 				491345B223CD1FFF001A1F0B /* LoadImageOperation.swift */,
 				4995DE5323CF7F8D0065EB29 /* DateConverter.swift */,
+				491345AF23CD19A7001A1F0B /* Constants.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -131,7 +132,6 @@
 				4931820C23CCCAE70000FADE /* SceneDelegate.swift */,
 				490B432423D0313800F942E6 /* ViewControllers */,
 				49E3F46923CD108C0036B74E /* Data */,
-				491345AF23CD19A7001A1F0B /* Constants.swift */,
 				491345B123CD1FE5001A1F0B /* Utilities */,
 				4931821623CCCAE90000FADE /* Assets.xcassets */,
 				4931821823CCCAE90000FADE /* LaunchScreen.storyboard */,
