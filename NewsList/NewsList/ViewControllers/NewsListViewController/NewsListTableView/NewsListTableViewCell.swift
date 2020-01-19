@@ -76,13 +76,13 @@ class NewsListTableViewCell: UITableViewCell {
         
         self.titleLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: width * 0.05).isActive = true
         self.titleLabel.topAnchor.constraint(equalTo: self.dateLabel.bottomAnchor, constant: 15).isActive = true
-        self.titleLabel.widthAnchor.constraint(equalToConstant: width - (width * 0.05)).isActive = true
-        self.titleLabel.numberOfLines = 0
+        self.titleLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -width * 0.05).isActive = true
+        self.titleLabel.numberOfLines = 2
         
         self.addSubview(self.postImage)
         
         self.postImage.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 15).isActive = true
-        self.postImage.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: screenWidth * 0.05).isActive = true
+        self.postImage.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: width * 0.05).isActive = true
         self.postImage.widthAnchor.constraint(equalToConstant: screenWidth * 0.9).isActive = true
         self.postImage.heightAnchor.constraint(equalToConstant: width * 0.7).isActive = true
     }
